@@ -1,0 +1,36 @@
+int latchPin = 12;  
+int clockPin = 11;  
+int dataPin = 13;  
+byte led = 0;  
+int toplamLed = 0;
+
+void setup()  
+{
+    pinMode(latchPin, OUTPUT);
+    pinMode(dataPin, OUTPUT);
+    pinMode(clockPin, OUTPUT);
+
+    led = 0;
+}
+
+void loop()  
+{
+    led = 0;
+
+    if (toplamLed == 7)
+    {
+        toplamLed = 0;
+    }
+    else
+    {
+        toplamLed++;
+    }
+
+    bitSet(led, toplamLed);
+
+    digitalWrite(latchPin, LOW);
+    shiftOut(dataPin, clockPin, LSBFIRST, led);
+    digitalWrite(latchPin, HIGH);
+
+    delay(500);
+}
